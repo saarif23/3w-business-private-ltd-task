@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Box,
-  Button,
-  Container,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import WalletIcon from "@mui/icons-material/Wallet";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -14,6 +7,7 @@ import Image1 from "../assets/ModalImage1.svg";
 import Image2 from "../assets/ModalImage2.png";
 //
 import Modal from "@mui/material/Modal";
+import { Link, NavLink } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -49,8 +43,10 @@ const names = [
 ];
 
 const Navbar = () => {
-  //
-  const [open, setOpen] = React.useState(false);
+  //Dropdown Menu
+  const [isOpen, setIsOpen] = useState(false);
+  // modal
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -60,8 +56,8 @@ const Navbar = () => {
         maxWidth: "1200px",
         marginRight: "auto",
         marginLeft: "auto",
-        marginTop:"20px",
-        marginBottom:"20px"
+        marginTop: "20px",
+        marginBottom: "20px",
       }}
     >
       <Box
@@ -71,9 +67,13 @@ const Navbar = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h5" color={"#6C22A6"} fontWeight="bold">
-          Faucets
-        </Typography>
+        <NavLink to="/" style={{
+          textDecorationLine:"none"
+        }}>
+          <Typography variant="h5" color={"#6C22A6"} fontWeight="bold">
+            Faucets
+          </Typography>
+        </NavLink>
         <Box
           sx={{
             display: "flex",
@@ -103,6 +103,7 @@ const Navbar = () => {
           </Button>
 
           <AccountCircleIcon
+            onClick={() => setIsOpen(!isOpen)}
             style={{
               backgroundColor: "lightgray",
               width: "30px",
@@ -111,8 +112,39 @@ const Navbar = () => {
               borderRadius: "100%",
               color: "gray",
               cursor: "pointer",
+              position: "relative",
             }}
           />
+          {isOpen && (
+            <div
+              style={{
+                position: "absolute",
+                backgroundColor: "white",
+                width: "150px",
+                padding: "20px",
+                right: 30,
+                top: 80,
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                borderRadius: "5px",
+              }}
+            >
+              <Link
+                to="/signup"
+                style={{ display: "block", marginBottom: "10px" }}
+              >
+                Sign up
+              </Link>
+              <Link
+                to="/login"
+                style={{ display: "block", marginBottom: "10px" }}
+              >
+                Login
+              </Link>
+              <Link to="faq" style={{ display: "block" }}>
+                FAQ
+              </Link>
+            </div>
+          )}
         </Box>
       </Box>
 

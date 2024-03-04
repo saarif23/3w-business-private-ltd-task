@@ -1,14 +1,13 @@
-import { Box } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import WarningIcon from "@mui/icons-material/Warning";
+import ETHTable from "./Table/ETHTable";
+import { useState } from "react";
+import TestLineTHistory from "./Table/TestLineTHistory";
 const Body = () => {
+  const [showETHtTble, setShowETHtTble] = useState(true);
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f0fcfc",
-      }}
-    >
+    <div>
       <div
         style={{
           maxWidth: "1200px",
@@ -45,13 +44,135 @@ const Body = () => {
               padding: "10px",
             }}
           >
-            <WarningIcon sx={{
-                color:"#7c28bc"
-            }} />
+            <WarningIcon
+              sx={{
+                color: "#7c28bc",
+              }}
+            />
             <Typography variant="body1" color="gray">
               Your wallet is connected to Arbitrum Rinkeby, so you are
               requesting Arbitrum Rinkeby Link/ETH.
             </Typography>
+          </Box>
+          <Box
+            sx={{
+              marginY: "10px",
+            }}
+          >
+            <Typography
+              variant="body"
+              color="#7c28bc"
+              fontWeight="bold"
+              sx={{
+                display: "block",
+                paddingY: "5px",
+              }}
+            >
+              Wallet Address
+            </Typography>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              size="small"
+              placeholder="Your Wallet Address"
+              sx={{
+                width: "50%",
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              marginY: "10px",
+            }}
+          >
+            <Typography
+              variant="body"
+              color="#7c28bc"
+              fontWeight="bold"
+              sx={{
+                display: "block",
+                paddingY: "5px",
+              }}
+            >
+              Request Type
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                width: "50%",
+                gap: 2,
+              }}
+            >
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                disabled
+                placeholder="20 Text Link"
+                sx={{
+                  width: "100%",
+                  bgcolor: "lightgray",
+                }}
+              />
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                disabled
+                placeholder="0.5 ETH"
+                sx={{
+                  width: "100%",
+                  bgcolor: "lightgray",
+                }}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#7c28bc",
+                textTransform: "capitalize",
+                fontWeight: "bold",
+                marginTop: "10px",
+              }}
+            >
+              Send Request
+            </Button>
+          </Box>
+
+          {/* request history */}
+          <Box marginTop={"20px"}>
+            <Typography variant="body1" color="initial" fontWeight={"bold"}>
+              Request History
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                marginY: "10px",
+              }}
+            >
+              <Button
+                onClick={() => setShowETHtTble(true)}
+                variant={showETHtTble ? "contained" : "outlined"}
+                sx={{
+                  textTransform: "capitalize",
+                  fontWeight: "bold",
+                }}
+              >
+                ETH Transaction History
+              </Button>
+              <Button
+                onClick={() => setShowETHtTble(false)}
+                variant={showETHtTble ? "outlined" : "contained"}
+                sx={{
+                  textTransform: "capitalize",
+                  fontWeight: "bold",
+                }}
+              >
+                Testline Transaction History
+              </Button>
+            </Box>
+            {showETHtTble ? <ETHTable /> : <TestLineTHistory />}
           </Box>
         </Box>
       </div>
